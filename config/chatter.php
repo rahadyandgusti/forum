@@ -229,7 +229,7 @@ return [
 
     'tinymce' => [
         'toolbar' => 'bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image',
-        'plugins' => 'link, image',
+        'plugins' => 'link, image, imagetools',
     ],
 
     /*

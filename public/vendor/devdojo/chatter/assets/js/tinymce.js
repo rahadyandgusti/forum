@@ -68,25 +68,16 @@ tinymce.init({
             var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
             var base64 = reader.result.split(',')[1];
             var blobInfo = blobCache.create(id, file, base64);
-            // console.log('blobInfo.blobUri()');
-            console.log(blobInfo.blobUri());
+
             uploadImage(base64,function(result){
-                console.log('here');
-                console.log(result);
                 if(result.respond == 'true')
                     cb(result.data, { title: file.name });
                 else{
                     // TODO
                 }
             });
-          //   blobCache.add(blobInfo);
-
-          //   // call the callback and populate the Title field with the file name
-            // cb(blobInfo.blobUri(), { title: file.name });
           };
           reader.readAsDataURL(file);
-
-            
         };
 
         input.click();
