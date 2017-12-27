@@ -68,7 +68,7 @@
                         <ul class="nav nav-pills nav-stacked">
                             <?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
                             @foreach($categories as $category)
-                                <li><a href="{{ url(Config::get('chatter.routes.home') .'/'. Config::get('chatter.routes.category') .'/'. $category->slug) }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
+                                <li><a href="{{ url(Config::get('chatter.routes.home') .'/'. Config::get('chatter.routes.category') .'/'. $category->slug) }}" class="active"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -178,7 +178,7 @@
 						    	<div id="editor">
 									@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
 										<label id="tinymce_placeholder">Type Your Discussion Here...</label>
-					    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+					    				<textarea id="body" class="richText content" name="body" placeholder="">{{ old('body') }}</textarea>
 					    			@elseif($chatter_editor == 'simplemde')
 					    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
 									@elseif($chatter_editor == 'trumbowyg')
@@ -260,7 +260,7 @@
                 <div id="editor">
                     @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
                         <label id="tinymce_placeholder">Add the content for your Discussion here</label>
-                        <textarea id="body_in_discussion_view" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
+                        <textarea id="body_in_discussion_view" class="richText content" name="body" placeholder="">{{ old('body') }}</textarea>
                     @elseif($chatter_editor == 'simplemde')
                         <textarea id="simplemde_in_discussion_view" name="body" placeholder="">{{ old('body') }}</textarea>
                     @elseif($chatter_editor == 'trumbowyg')
@@ -345,7 +345,7 @@
 			details = container.find('.chatter_middle_details');
 
 			// dynamically create a new text area
-			container.prepend('<textarea id="post-edit-' + id + '"></textarea>');
+			container.prepend('<textarea id="post-edit-' + id + '" class="content"></textarea>');
             // Client side XSS fix
             $("#post-edit-"+id).text(body.html());
 			container.append('<div class="chatter_update_actions"><button class="btn btn-success pull-right update_chatter_edit"  data-id="' + id + '" data-markdown="' + markdown + '"><i class="chatter-check"></i> Update Response</button><button href="/" class="btn btn-default pull-right cancel_chatter_edit" data-id="' + id + '"  data-markdown="' + markdown + '">Cancel</button></div>');
@@ -459,7 +459,53 @@
             @endif
         @endif
 
+        @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
+		$('form').submit(function(e){
+			var $tmp = $(this).find('.content').val();
+			$(this).find('.content').val($tmp.replace('images/tmp/','{{config("app.url")}}/images/tmp/'));
+			// e.preventDefault();
+			// return false;
+		});
+		@endif
+
 	});
+
+
+	function uploadImage(file, callback){
+		new Promise((resolve, reject) => {
+		    console.log('Initial');
+			console.log(file);
+		    var formData = new FormData();
+		    formData.append('image', file);
+		    formData.append('_token', '{{ csrf_token() }}');
+		    formData.append('_method', 'POST');
+		    // $('#load').button('loading');
+		    $.ajax({
+		        url : "{{ url('upload/image') }}",
+		        type : "POST",
+		        data: formData,
+		        contentType: false,       
+		        cache: false,             
+		        processData:false,
+		        success: function(result){
+		            // var result = JSON.parse(result1);
+		            // console.log(result);
+		            	console.log('result');
+		            	console.log(result);
+		                callback(result);
+		                resolve();
+		            // $('#load').button('reset');
+		        },
+		        error: function (error) {
+		              callback({
+		                respond: 'false',
+		                message: 'Error While Upload Image'
+		              });
+		              resolve();
+		        }
+		    });
+		})
+	}
 </script>
 
 <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>

@@ -62,11 +62,11 @@
 	    		<!-- SIDEBAR -->
 	    		<div class="chatter_sidebar">
 					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> New {{ Config::get('chatter.titles.discussion') }}</button>
-					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussions') }}</a>
+					<a href="{{ url(Config::get('chatter.routes.home')) }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussions') }}</a>
 					<ul class="nav nav-pills nav-stacked">
 						<?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
 						@foreach($categories as $category)
-							<li><a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
+							<li><a href="{{ url('/') }}{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
 						@endforeach
 					</ul>
 				</div>
@@ -77,7 +77,7 @@
 		        	<ul class="discussions">
 		        		@foreach($discussions as $discussion)
 				        	<li>
-				        		<a class="discussion_list" href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->category->slug }}/{{ $discussion->slug }}">
+				        		<a class="discussion_list" href="{{ url('/') }}{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->category->slug }}/{{ $discussion->slug }}">
 					        		<div class="chatter_avatar">
 					        			@if(Config::get('chatter.user.avatar_image_database_field'))
 
@@ -137,7 +137,7 @@
 		    <div></div>
 		</div>
 
-    	<form id="chatter_form_editor" action="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}" method="POST">
+    	<form id="chatter_form_editor" action="{{ url('/') }}{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}" method="POST">
         	<div class="row">
 	        	<div class="col-md-7">
 		        	<!-- TITLE -->
@@ -180,7 +180,7 @@
             <div id="new_discussion_footer">
             	<input type='text' id="color" name="color" /><span class="select_color_text">Select a Color for this Discussion (optional)</span>
             	<button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i> Create {{ Config::get('chatter.titles.discussion') }}</button>
-            	<a href="/{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">Cancel</a>
+            	<a href="{{ url('/') }}{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">Cancel</a>
             	<div style="clear:both"></div>
             </div>
         </form>
@@ -230,7 +230,7 @@
 		});
 		$('#new_discussion_btn, #cancel_discussion').click(function(){
 			@if(Auth::guest())
-				window.location.href = "/{{ Config::get('chatter.routes.home') }}/login";
+				window.location.href = "{{ url('/') }}{{ Config::get('chatter.routes.home') }}/login";
 			@else
 				$('#new_discussion').slideDown();
 				$('#title').focus();

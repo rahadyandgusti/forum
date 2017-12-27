@@ -14,6 +14,14 @@
     @yield('css')
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+        #chatter .left-column .nav-pills > li > a.active{
+            background-color: #ebecf9 !important;
+        }
+        #chatter .left-column .nav-pills > li > a:hover{
+            background-color: #d2d3e4 !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
