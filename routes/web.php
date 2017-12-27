@@ -24,3 +24,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/upload/image', 'HomeController@uploadImage')->name('upload.image');
+Route::get('/profile/{username}', 'ProfileController@index')->name('profile');
+Route::get('/profile/{username}/category/{slug}', 'ProfileController@index')->name('profile.category');

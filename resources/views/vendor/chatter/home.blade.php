@@ -78,6 +78,7 @@
 	        <div class="col-md-9 right-column">
 	        	<div class="panel">
 		        	<ul class="discussions">
+		        		@if(count($discussions))
 		        		@foreach($discussions as $discussion)
 				        	<li>
 				        		<a class="discussion_list" href="{{ url('/') }}{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.discussion') }}/{{ $discussion->category->slug }}/{{ $discussion->slug }}">
@@ -87,10 +88,12 @@
 					        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
 
 					        				<!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
-					        				@if( (substr($discussion->user->{$db_field}, 0, 7) == 'http://') || (substr($discussion->user->{$db_field}, 0, 8) == 'https://') )
-					        					<img src="{{ $discussion->user->{$db_field}  }}">
+					        				@if( ($discussion->user->{$db_field}) && file_exists(public_path()."/".$discussion->user->{$db_field}) )
+					        					<img src="{{ asset($discussion->user->{$db_field})  }}">
 					        				@else
-					        					<img src="{{ Config::get('chatter.user.relative_url_to_image_assets') . $discussion->user->{$db_field}  }}">
+					        					<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->email) ?>">
+						        					{{ strtoupper(substr($discussion->user->email, 0, 1)) }}
+						        				</span>
 					        				@endif
 
 					        			@else
@@ -124,6 +127,13 @@
 					        	</a>
 				        	</li>
 			        	@endforeach
+			        	@else
+			        		<li>
+			        			<a href="" class="discussion_list">
+			        			<h3>No discussion found</h3>
+			        			</a>
+			        		</li>
+			        	@endif
 		        	</ul>
 	        	</div>
 
