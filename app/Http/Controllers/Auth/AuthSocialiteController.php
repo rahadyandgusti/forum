@@ -43,7 +43,7 @@ class AuthSocialiteController extends Controller
 
         $check = UserSocial::whereHas('user')->find($user->getId());
         if ($check) {
-        	Auth::loginUsingId($check->user->id);
+        	\Auth::loginUsingId($check->user->id);
         	return redirect('/');
         } else {
         	$checkEmail = User::where('email', $user->getEmail())->first();
