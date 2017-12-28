@@ -10,6 +10,8 @@ use App\Models\UserSocial;
 
 use App\Http\Controllers\Auth\traitSlug;
 
+use Socialite;
+
 class AuthSocialiteController extends Controller
 {
 
@@ -24,7 +26,7 @@ class AuthSocialiteController extends Controller
     	$redirect = config('services.redirect.'.$service.'.login');
     	config(['services.'.$service.'.redirect' => $redirect]);
     	// return config('services.'.$service.'.redirect');
-        return \Socialite::driver($service)->redirect();
+        return Socialite::driver($service)->redirect();
     }
 
     /**
@@ -37,7 +39,7 @@ class AuthSocialiteController extends Controller
     	$redirect = config('services.redirect.'.$service.'.login');
     	config(['services.'.$service.'.redirect' => $redirect]);
 
-        $user = \Socialite::driver($service)->user();
+        $user = Socialite::driver($service)->user();
 
         $check = UserSocial::whereHas('user')->find($user->getId());
         if ($check) {
@@ -74,7 +76,7 @@ class AuthSocialiteController extends Controller
     	$redirect = config('services.redirect.'.$service.'.reg');
     	config(['services.'.$service.'.redirect' => $redirect]);
 
-        return \Socialite::driver($service)->redirect();
+        return Socialite::driver($service)->redirect();
     }
 
     /**
@@ -87,7 +89,7 @@ class AuthSocialiteController extends Controller
     	$redirect = config('services.redirect.'.$service.'.reg');
     	config(['services.'.$service.'.redirect' => $redirect]);
 
-        $user = \Socialite::driver($service)->user();
+        $user = Socialite::driver($service)->user();
 
         $checkEmail = User::where('email', $user->getEmail())->first();
         if(count($checkEmail)){
