@@ -86,7 +86,7 @@
 
 				<div class="conversation">
 	                <ul class="discussions no-bg" style="display:block;">
-	                	@foreach($posts as $post)
+	                	@foreach($posts as $i => $post)
 	                		<li data-id="{{ $post->id }}" data-markdown="{{ $post->markdown }}">
 		                		<span class="chatter_posts">
 		                			@if(!Auth::guest() && (Auth::user()->id == $post->user->id))
@@ -142,6 +142,10 @@
 					        			</div>
 					        		</div>
 
+					        		
+					        		@if($i == 0)
+					        			<div class="sharethis-inline-share-buttons"></div>
+					        		@endif
 					        		<div class="chatter_clear"></div>
 				        		</span>
 		                	</li>
@@ -532,5 +536,5 @@
 </script>
 
 <script src="/vendor/devdojo/chatter/assets/js/chatter.js"></script>
-
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a44b60b7820fd001360b3d6&product=inline-share-buttons"></script>
 @stop
