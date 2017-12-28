@@ -61,7 +61,8 @@
                             </div>
                         </div>
                     </form>
-                    <a class="btn btn-danger" href="{{ route('login.social','google') }}">google</a>
+                    <a class="btn btn-danger" href="{{ route('login.social','google') }}"><i class="fab fa-google-plus-g"></i></a>
+                    <a class="btn btn-primary" href="{{ route('login.social','facebook') }}"><i class="fab fa-facebook-f"></i></a>
                 </div>
             </div>
         </div>

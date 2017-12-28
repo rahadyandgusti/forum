@@ -41,13 +41,23 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),  
     ], 
 
+    'facebook' => [
+        'client_id' => env('FACEBOOK_KEY'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT_URI'),  
+    ], 
 
-    'socialite' => ['google'],
+
+    'socialite' => ['google', 'facebook'],
 
     'redirect' => [
         'google' => [
             'login' => env('APP_URL').'/login/google/callback',
             'reg' => env('APP_URL').'/reg/google/callback',
+        ],
+        'facebook' => [
+            'login' => env('APP_URL').'/login/facebook/callback',
+            'reg' => env('APP_URL').'/reg/facebook/callback',
         ],
     ],
 

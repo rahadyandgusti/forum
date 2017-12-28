@@ -28,6 +28,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
     @yield('css')
     <!-- Styles -->
@@ -40,6 +42,7 @@
             background-color: #d2d3e4 !important;
         }
     </style>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </head>
 <body>
     <div id="app">
