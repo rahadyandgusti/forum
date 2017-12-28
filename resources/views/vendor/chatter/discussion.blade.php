@@ -403,11 +403,18 @@
 			} else {
                 @if($chatter_editor == 'tinymce' || empty($chatter_editor))
                     update_body = tinyMCE.get('post-edit-' + post_id).getContent();
+                    update_body = update_body
+                    			.replace('../../images/tmp/','images/tmp/')
+                    			.replace('{{config("app.url")}}/images/tmp/','images/tmp/')
+                    			.replace('images/tmp/','{{config("app.url")}}/images/tmp/')
+                    			.replace('<img class="img-responsive"','<img')
+                    			.replace('<img','<img class="img-responsive"');
                 @elseif($chatter_editor == 'trumbowyg')
                     update_body = $('#post-edit-' + id).trumbowyg('html');
                 @endif
 			}
-
+			console.log(update_body);
+			// return false;
 			$.form('{{ url(Config::get('chatter.routes.home')) }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
 		});
 
@@ -470,9 +477,14 @@
         @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
 		$('form').submit(function(e){
 			var $tmp = $(this).find('.content').val();
-			$(this).find('.content').val($tmp.replace('images/tmp/','{{config("app.url")}}/images/tmp/').replace('<img','class="img-responsive"'));
-			// e.preventDefault();
-			// return false;
+			console.log($tmp);
+			$(this).find('.content').val($tmp.replace('../../images/tmp/','images/tmp/')
+                    			.replace('{{config("app.url")}}/images/tmp/','images/tmp/')
+                    			.replace('images/tmp/','{{config("app.url")}}/images/tmp/')
+                    			.replace('<img class="img-responsive"','<img')
+                    			.replace('<img','<img class="img-responsive"'));
+			e.preventDefault();
+			return false;
 		});
 		@endif
 
