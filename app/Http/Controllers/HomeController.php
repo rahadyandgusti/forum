@@ -31,13 +31,10 @@ class HomeController extends Controller
         // return $req;
         $respond = '';
         if($req['image']){
-            $image = \Image::make($request->image)->resize(945,325);
+            $image = \Image::make($request->image);
             $filename = md5($request->image.time()).'.jpg';
             $fileUrl = 'images/tmp/'.$filename;
             \Storage::disk('public')->put($fileUrl, $image->stream());
-            $fileUrlThumb = 'content/header-thumb/'.$filename;
-            $image = $image->crop(300,300);
-            \Storage::disk('public')->put($fileUrlThumb, $image->stream());
             
             return [
                 'respond' => 'true',

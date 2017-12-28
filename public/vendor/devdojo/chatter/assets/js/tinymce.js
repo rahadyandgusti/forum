@@ -60,14 +60,14 @@ tinymce.init({
         input.onchange = function() {
           var file = this.files[0];
           var reader = new FileReader();
-          reader.onload = function () {
+          reader.onload = function (e) {
           //   // Note: Now we need to register the blob in TinyMCEs image blob
           //   // registry. In the next release this part hopefully won't be
           //   // necessary, as we are looking to handle it internally.
-            var id = 'blobid' + (new Date()).getTime();
-            var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-            var base64 = reader.result.split(',')[1];
-            var blobInfo = blobCache.create(id, file, base64);
+            // var id = 'blobid' + (new Date()).getTime();
+            // var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+            // var blobInfo = blobCache.create(id, file, base64);
+            var base64 = e.target.result.split(',')[1];
 
             uploadImage(base64,function(result){
                 if(result.respond == 'true')
