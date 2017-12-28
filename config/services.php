@@ -43,11 +43,11 @@ return [
 
 
     'socialite' => ['google'],
-    
+
     'redirect' => [
         'google' => [
-            'login' => 'http://localhost:8000/login/google/callback',
-            'reg' => 'http://localhost:8000/reg/google/callback',
+            'login' => env('APP_URL').'/login/google/callback',
+            'reg' => env('APP_URL').'/reg/google/callback',
         ],
     ],
 
