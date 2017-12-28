@@ -69,6 +69,7 @@
                             </div>
                         </div>
                     </form>
+                    <a class="btn btn-danger" href="{{ route('reg.social','google') }}">google</a>
                 </div>
             </div>
         </div>

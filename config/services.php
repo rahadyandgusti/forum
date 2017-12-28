@@ -35,4 +35,20 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_KEY'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),  
+    ], 
+
+
+    'socialite' => ['google'],
+    
+    'redirect' => [
+        'google' => [
+            'login' => 'http://localhost:8000/login/google/callback',
+            'reg' => 'http://localhost:8000/reg/google/callback',
+        ],
+    ],
+
 ];

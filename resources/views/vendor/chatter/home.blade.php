@@ -88,7 +88,9 @@
 					        				<?php $db_field = Config::get('chatter.user.avatar_image_database_field'); ?>
 
 					        				<!-- If the user db field contains http:// or https:// we don't need to use the relative path to the image assets -->
-					        				@if( ($discussion->user->{$db_field}) && file_exists(public_path()."/".$discussion->user->{$db_field}) )
+					        				@if( (substr($discussion->user->{$db_field}, 0, 7) == 'http://') || (substr($discussion->user->{$db_field}, 0, 8) == 'https://') )
+					        					<img src="{{ ($discussion->user->{$db_field})  }}">
+					        				@elseif( file_exists(public_path()."/".$discussion->user->{$db_field}) )
 					        					<img src="{{ asset($discussion->user->{$db_field})  }}">
 					        				@else
 					        					<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->email) ?>">
