@@ -280,8 +280,6 @@
 				$tmp.replace('../../images/tmp/','images/tmp/')
                     			.replace('{{config("app.url")}}/images/tmp/','images/tmp/')
                     			.replace('images/tmp/','{{config("app.url")}}/images/tmp/')
-                    			.replace('<img class="img-responsive"','<img')
-                    			.replace('<img','<img class="img-responsive"')
 			);
 			console.log($('textarea#body').val());
 			// e.preventDefault();

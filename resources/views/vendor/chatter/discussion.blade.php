@@ -15,6 +15,13 @@
             }
         </style>
     @endif
+    <style type="text/css">
+    	#chatter ul.discussions img{
+            	display: block;
+				max-width: 100%;
+				height: auto;
+            }
+    </style>
 @stop
 
 
@@ -406,14 +413,12 @@
                     update_body = update_body
                     			.replace('../../images/tmp/','images/tmp/')
                     			.replace('{{config("app.url")}}/images/tmp/','images/tmp/')
-                    			.replace('images/tmp/','{{config("app.url")}}/images/tmp/')
-                    			.replace('<img class="img-responsive"','<img')
-                    			.replace('<img','<img class="img-responsive"');
+                    			.replace('images/tmp/','{{config("app.url")}}/images/tmp/');
                 @elseif($chatter_editor == 'trumbowyg')
                     update_body = $('#post-edit-' + id).trumbowyg('html');
                 @endif
 			}
-			// console.log(update_body);
+			console.log(update_body);
 			// return false;
 			$.form('{{ url(Config::get('chatter.routes.home')) }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
 		});
@@ -480,9 +485,7 @@
 			console.log($tmp);
 			$(this).find('.content').val($tmp.replace('../../images/tmp/','images/tmp/')
                     			.replace('{{config("app.url")}}/images/tmp/','images/tmp/')
-                    			.replace('images/tmp/','{{config("app.url")}}/images/tmp/')
-                    			.replace('<img class="img-responsive"','<img')
-                    			.replace('<img','<img class="img-responsive"'));
+                    			.replace('images/tmp/','{{config("app.url")}}/images/tmp/'));
 			e.preventDefault();
 			return false;
 		});
