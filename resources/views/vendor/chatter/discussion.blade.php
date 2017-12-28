@@ -413,7 +413,7 @@
                     update_body = $('#post-edit-' + id).trumbowyg('html');
                 @endif
 			}
-			console.log(update_body);
+			// console.log(update_body);
 			// return false;
 			$.form('{{ url(Config::get('chatter.routes.home')) }}/posts/' + post_id, { _token: '{{ csrf_token() }}', _method: 'PATCH', 'body' : update_body }, 'POST').submit();
 		});
