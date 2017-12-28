@@ -470,7 +470,7 @@
         @if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
 		$('form').submit(function(e){
 			var $tmp = $(this).find('.content').val();
-			$(this).find('.content').val($tmp.replace('images/tmp/','{{config("app.url")}}/images/tmp/'));
+			$(this).find('.content').val($tmp.replace('images/tmp/','{{config("app.url")}}/images/tmp/').replace('<img','class="img-responsive"'));
 			// e.preventDefault();
 			// return false;
 		});

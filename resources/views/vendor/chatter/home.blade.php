@@ -276,7 +276,10 @@
 		$('form#chatter_form_editor').submit(function(e){
 			var $tmp = $('textarea#body').val();
 			console.log($tmp);
-			$('textarea#body').val($tmp.replace('images/tmp/','{{config("app.url")}}/images/tmp/'));
+			$('textarea#body').val(
+				$tmp.replace('images/tmp/','{{config("app.url")}}/images/tmp/').
+				replace('<img','class="img-responsive"')
+			);
 			console.log($('textarea#body').val());
 			// e.preventDefault();
 			// return false;
@@ -303,13 +306,8 @@
 		        cache: false,             
 		        processData:false,
 		        success: function(result){
-		            // var result = JSON.parse(result1);
-		            // console.log(result);
-		            	console.log('result');
-		            	console.log(result);
 		                callback(result);
 		                resolve();
-		            // $('#load').button('reset');
 		        },
 		        error: function (error) {
 		              callback({
